@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bwastartup/user"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -14,17 +15,19 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	_ = db
+	userRepository := user.NewRepository(db)
+	userService := user.NewService(userRepository)
 
-	//userRepository := user.NewRepository(db)
-	//user := user.User{
-	//	Name: "John",
-	//}
-	//
-	//_, err = userRepository.Save(user)
-	//if err != nil {
-	//	log.Fatal(err.Error())
-	//}
-	//
-	//log.Println("User is created")
+	userInput := user.RegisterUserInput{}
+	userInput.Name = "John"
+	userInput.Occupation = "Programmer"
+	userInput.Email = "john@mail.com"
+	userInput.Password = "password"
+
+	registerUser, err := userService.RegisterUser(userInput)
+	if err != nil {
+		return
+	}
+
+	log.Println(registerUser)
 }
