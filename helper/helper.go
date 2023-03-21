@@ -25,3 +25,12 @@ func APIResponse(message string, code int, status string, data interface{}) Resp
 
 	return jsonResponse
 }
+
+func FormatValidationError(err error) []string {
+	var errors []string
+	if err != nil {
+		errors = append(errors, err.Error())
+	}
+
+	return errors
+}
