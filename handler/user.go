@@ -30,7 +30,9 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 		return
 	}
 
-	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", newUser)
+	formatter := user.FormatUser(newUser, "tokentokentoken")
+
+	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", formatter)
 
 	c.JSON(http.StatusOK, response)
 }
