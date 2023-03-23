@@ -25,10 +25,12 @@ func main() {
 
 	userRepository := user.NewRepository(db)
 	campaignRepository := campaign.NewRepository(db)
-	_ = campaignRepository
+
 	userService := user.NewService(userRepository)
+	campaignService := campaign.NewService(campaignRepository)
 	authService := auth.NewService()
 
+	_ = campaignService
 	userHandler := handler.NewUserHandler(userService, authService)
 
 	router := gin.Default()
